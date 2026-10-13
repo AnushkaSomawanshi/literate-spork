@@ -30,6 +30,18 @@ def causal_path(events: list[dict[str, Any]], source_id: str, target_id: str) ->
 
 
 def compare_events(events: list[dict[str, Any]], event_a: str, event_b: str) -> dict[str, Any]:
+    by_id = {event["event_id"] for event in events}
+    if event_a not in by_id or event_b not in by_id:
+        raise ValueError("Both event IDs must exist in the current trace.")
+    if event_a == event_b:
+        return {
+            "event_a": event_a,
+            "event_b": event_b,
+            "relation": "SAME_EVENT",
+            "path": [event_a],
+            "explanation": "Both selections refer to the same recorded event; strict happened-before ordering is not applicable.",
+            "timestamps_alone_prove_causality": False,
+        }
     path_ab = causal_path(events, event_a, event_b)
     path_ba = causal_path(events, event_b, event_a)
     if path_ab:
