@@ -56,7 +56,6 @@ export default function BeaconMonitoringLab() {
       if (!response.ok) throw new Error('Beacon service returned HTTP ' + response.status);
       const result = await response.json();
       setData(result);
-      setConfig(result.config);
       setError('');
     } catch (e) { setError(e.message || 'Could not connect to the beacon API.'); }
   }, []);
