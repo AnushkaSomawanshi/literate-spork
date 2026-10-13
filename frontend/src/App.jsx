@@ -16,6 +16,7 @@ import MiddlewarePage from './pages/MiddlewarePage';
 import SystemHealthDemo from './pages/SystemHealthDemo';
 import TeacherQuestionsPage from './pages/TeacherQuestionsPage';
 import ClockSyncLab from './pages/ClockSyncLab';
+import MissionForensics from './pages/MissionForensics';
 
 export default function App() {
   const [satellites, setSatellites] = useState([]);
@@ -152,6 +153,7 @@ export default function App() {
               <Route path="/demo-center" element={<SystemHealthDemo />} />
               <Route path="/teacher-questions" element={<TeacherQuestionsPage />} />
               <Route path="/clock-sync" element={<ClockSyncLab />} />
+              <Route path="/mission-forensics" element={<MissionForensics />} />
             </Routes>
           </main>
         </div>
