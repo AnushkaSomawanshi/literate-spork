@@ -13,6 +13,7 @@ from backend.routers.algorithms import router as algorithms_router
 from backend.routers.forensics import router as forensics_router
 from backend.routers.vector_clock import router as vector_clock_router
 from backend.routers.beacon import router as beacon_router
+from backend.routers.kubernetes_lab import router as kubernetes_lab_router
 from backend.registry.service_registry import global_registry
 from backend.services.health_engine import HealthEngine
 from backend.communication.grpc_client import GRPCClientManager
@@ -493,3 +494,5 @@ app.include_router(algorithms_router)
 app.include_router(forensics_router)
 app.include_router(vector_clock_router)
 app.include_router(beacon_router)
+
+app.include_router(kubernetes_lab_router)

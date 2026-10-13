@@ -110,6 +110,7 @@ Mission Control acts as the central observability and orchestration hub, communi
 ```
 DS-Project/
 ├── README.md                           # Main Project Entrypoint
+├── k8s/                                # Kubernetes lab manifests
 ├── docs/                               # Detailed Engineering Documentation
 │   ├── ARCHITECTURE.md                 # System Architecture & Component Mapping
 │   ├── DISTRIBUTED_SYSTEMS.md          # Academic Syllabus & Viva Mapping

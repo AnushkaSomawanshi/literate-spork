@@ -16,7 +16,8 @@ import {
   Clock3,
   SearchCheck,
   GitCompare,
-  RadioTower
+  RadioTower,
+  Boxes
 } from 'lucide-react';
 
 const navItems = [
@@ -35,7 +36,8 @@ const navItems = [
   { path: '/clock-sync', name: 'Mission Timeline Integrity', icon: Clock3 },
   { path: '/mission-forensics', name: 'Mission Incident Reconstruction', icon: SearchCheck },
   { path: '/vector-clock', name: 'Vector Clock Lab', icon: GitCompare },
-  { path: '/beacon-monitor', name: 'Beacon Monitoring Lab', icon: RadioTower }
+  { path: '/beacon-monitor', name: 'Beacon Monitoring Lab', icon: RadioTower },
+  { path: '/kubernetes-lab', name: 'Kubernetes Mission Lab', icon: Boxes }
 ];
 
 export default function Sidebar() {
