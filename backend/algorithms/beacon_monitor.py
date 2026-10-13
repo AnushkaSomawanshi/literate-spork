@@ -44,7 +44,7 @@ class BeaconMonitor:
         self.config = dict(DEFAULT_CONFIG)
         self.nodes = {}
         self.events = []
-        self._event_sequence = 0
+        self._event_sequence = getattr(self, '_event_sequence', 0)
         self._started_at = now
         for index, satellite_id in enumerate(SATELLITES):
             self.nodes[satellite_id] = {
