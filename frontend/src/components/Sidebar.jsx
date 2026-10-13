@@ -12,7 +12,8 @@ import {
   Video,
   Layers,
   PlayCircle,
-  HelpCircle
+  HelpCircle,
+  Clock3
 } from 'lucide-react';
 
 const navItems = [
@@ -27,7 +28,8 @@ const navItems = [
   { path: '/multimedia', name: 'Satellite WebRTC Feed', icon: Video },
   { path: '/middleware', name: 'Middleware Architecture', icon: Layers },
   { path: '/demo-center', name: 'Classroom Demo Center', icon: PlayCircle },
-  { path: '/teacher-questions', name: 'Teacher Questions & Viva', icon: HelpCircle }
+  { path: '/teacher-questions', name: 'Teacher Questions & Viva', icon: HelpCircle },
+  { path: '/clock-sync', name: 'Mission Timeline Integrity', icon: Clock3 }
 ];
 
 export default function Sidebar() {
