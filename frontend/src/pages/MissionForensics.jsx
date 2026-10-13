@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Activity, AlertTriangle, ArrowDown, ArrowRight, CheckCircle2, ChevronRight,
-  CircleDot, Clock3, Download, FileSearch, GitBranch, GitCompare, History,
+  CircleDot, Clock3, Download, Search, GitBranch, GitCompare, History,
   Layers3, MessageSquare, Pause, Play, Radio, RefreshCw, Satellite, Search,
   Send, ShieldCheck, StepForward, Thermometer, Workflow, XCircle
 } from 'lucide-react';
@@ -9,7 +9,7 @@ import {
 const API = '/api/algorithms/forensics';
 const SATELLITES = ['SAT-01', 'SAT-02', 'SAT-03', 'SAT-04', 'SAT-05'];
 const TABS = [
-  { id: 'briefing', label: 'Incident briefing', icon: FileSearch },
+  { id: 'briefing', label: 'Incident briefing', icon: Search },
   { id: 'reconstruct', label: 'Reconstruction', icon: Workflow },
   { id: 'causality', label: 'Causality analysis', icon: GitBranch },
   { id: 'report', label: 'Evidence report', icon: ShieldCheck }
@@ -271,7 +271,7 @@ export default function MissionForensics() {
     <nav className="flex gap-1 overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/70 p-1.5">{TABS.map(item => { const Icon = item.icon; return <button key={item.id} onClick={() => setTab(item.id)} className={'flex shrink-0 items-center gap-2 rounded-lg px-3 py-2.5 text-xs font-medium transition ' + (tab === item.id ? 'bg-cyan-300 text-slate-950' : 'text-slate-400 hover:bg-slate-800 hover:text-white')}><Icon size={14}/>{item.label}</button>; })}</nav>
 
     {tab === 'briefing' && <div className="grid gap-4 xl:grid-cols-[1.15fr_.85fr]">
-      <Panel className="p-5 md:p-6"><SectionHeading eyebrow="01 / Initial evidence" title="Incident briefing" detail="Inspect the evidence before reconstructing the sequence." icon={FileSearch}/><p className="mt-4 text-sm leading-6 text-slate-300">{currentIncident?.summary || 'Mission Control received a thermal anomaly, a relay receipt, and an emergency imaging request. Physical timestamps appear inconsistent with message flow.'}</p>
+      <Panel className="p-5 md:p-6"><SectionHeading eyebrow="01 / Initial evidence" title="Incident briefing" detail="Inspect the evidence before reconstructing the sequence." icon={Search}/><p className="mt-4 text-sm leading-6 text-slate-300">{currentIncident?.summary || 'Mission Control received a thermal anomaly, a relay receipt, and an emergency imaging request. Physical timestamps appear inconsistent with message flow.'}</p>
         <div className="mt-5 space-y-3">{[
           {id:'A',title:'Thermal anomaly',node:'SAT-01',body:'A payload-temperature threshold was crossed and an alert was prepared.',icon:Thermometer},
           {id:'B',title:'Relay timestamp conflict',node:'SAT-03',body:'The receive record appears earlier than the sender according to simulated physical time.',icon:Radio},
