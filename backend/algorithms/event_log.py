@@ -17,17 +17,17 @@ SCENARIOS = {
         "incident_id": "INC-2048",
         "summary": "Reconstruct a thermal alert relayed from SAT-01 to SAT-03 and SAT-05 while simulated physical clocks disagree.",
         "steps": [
-            {"node_id": "SAT-01", "event_type": "local", "description": "Thermal anomaly detected", "physical_timestamp": "10:00:01.800", "kind": "anomaly"},
-            {"node_id": "SAT-01", "event_type": "send", "message_id": "MSG-THERMAL-001", "destination_id": "SAT-03", "description": "Send thermal alert to SAT-03", "physical_timestamp": "10:00:01.900", "kind": "send"},
-            {"node_id": "SAT-03", "event_type": "local", "description": "Payload calibration check", "physical_timestamp": "10:00:00.900", "kind": "local"},
-            {"node_id": "SAT-03", "event_type": "local", "description": "Attitude-control status sampled", "physical_timestamp": "10:00:01.000", "kind": "local"},
-            {"node_id": "SAT-02", "event_type": "local", "description": "Independent ocean-observation recorded", "physical_timestamp": "10:00:01.300", "kind": "independent"},
-            {"node_id": "SAT-03", "event_type": "receive", "message_id": "MSG-THERMAL-001", "description": "Receive thermal alert from SAT-01", "physical_timestamp": "10:00:01.200", "kind": "receive"},
-            {"node_id": "SAT-03", "event_type": "send", "message_id": "MSG-IMAGING-001", "destination_id": "SAT-05", "description": "Send emergency imaging request to SAT-05", "physical_timestamp": "10:00:02.200", "kind": "send"},
-            {"node_id": "SAT-05", "event_type": "receive", "message_id": "MSG-IMAGING-001", "description": "Receive emergency imaging request", "physical_timestamp": "10:00:02.050", "kind": "receive"},
-            {"node_id": "SAT-05", "event_type": "local", "description": "Imaging payload acknowledges readiness", "physical_timestamp": "10:00:02.100", "kind": "local"},
-            {"node_id": "SAT-05", "event_type": "send", "message_id": "MSG-ACK-001", "destination_id": "SAT-03", "description": "Send imaging-ready acknowledgement", "physical_timestamp": "10:00:02.110", "kind": "send"},
-            {"node_id": "SAT-03", "event_type": "receive", "message_id": "MSG-ACK-001", "description": "Receive imaging-ready acknowledgement", "physical_timestamp": "10:00:01.500", "kind": "receive"}
+            {"node_id": "SAT-01", "event_type": "local", "description": "Thermal anomaly detected", "physical_timestamp": "2026-01-01T10:00:01.800Z", "kind": "anomaly"},
+            {"node_id": "SAT-01", "event_type": "send", "message_id": "MSG-THERMAL-001", "destination_id": "SAT-03", "description": "Send thermal alert to SAT-03", "physical_timestamp": "2026-01-01T10:00:01.900Z", "kind": "send"},
+            {"node_id": "SAT-03", "event_type": "local", "description": "Payload calibration check", "physical_timestamp": "2026-01-01T10:00:00.900Z", "kind": "local"},
+            {"node_id": "SAT-03", "event_type": "local", "description": "Attitude-control status sampled", "physical_timestamp": "2026-01-01T10:00:01.000Z", "kind": "local"},
+            {"node_id": "SAT-02", "event_type": "local", "description": "Independent ocean-observation recorded", "physical_timestamp": "2026-01-01T10:00:01.300Z", "kind": "independent"},
+            {"node_id": "SAT-03", "event_type": "receive", "message_id": "MSG-THERMAL-001", "description": "Receive thermal alert from SAT-01", "physical_timestamp": "2026-01-01T10:00:01.200Z", "kind": "receive"},
+            {"node_id": "SAT-03", "event_type": "send", "message_id": "MSG-IMAGING-001", "destination_id": "SAT-05", "description": "Send emergency imaging request to SAT-05", "physical_timestamp": "2026-01-01T10:00:02.200Z", "kind": "send"},
+            {"node_id": "SAT-05", "event_type": "receive", "message_id": "MSG-IMAGING-001", "description": "Receive emergency imaging request", "physical_timestamp": "2026-01-01T10:00:02.050Z", "kind": "receive"},
+            {"node_id": "SAT-05", "event_type": "local", "description": "Imaging payload acknowledges readiness", "physical_timestamp": "2026-01-01T10:00:02.100Z", "kind": "local"},
+            {"node_id": "SAT-05", "event_type": "send", "message_id": "MSG-ACK-001", "destination_id": "SAT-03", "description": "Send imaging-ready acknowledgement", "physical_timestamp": "2026-01-01T10:00:02.110Z", "kind": "send"},
+            {"node_id": "SAT-03", "event_type": "receive", "message_id": "MSG-ACK-001", "description": "Receive imaging-ready acknowledgement", "physical_timestamp": "2026-01-01T10:00:01.500Z", "kind": "receive"}
         ]
     }
 }
