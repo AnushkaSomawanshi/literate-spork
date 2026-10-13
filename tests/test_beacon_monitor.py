@@ -19,7 +19,7 @@ def setup_lab():
 
 
 def selected(lab, satellite="SAT-02"):
-    return next(item for item in lab[0].tick()["nodes"] if item["satellite_id"] == satellite)
+    return next(item for item in lab.tick()["nodes"] if item["satellite_id"] == satellite)
 
 
 def test_all_five_nodes_begin_active():
