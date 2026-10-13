@@ -17,6 +17,7 @@ import SystemHealthDemo from './pages/SystemHealthDemo';
 import TeacherQuestionsPage from './pages/TeacherQuestionsPage';
 import ClockSyncLab from './pages/ClockSyncLab';
 import MissionForensics from './pages/MissionForensics';
+import VectorClockLab from './pages/VectorClockLab';
 
 export default function App() {
   const [satellites, setSatellites] = useState([]);
@@ -154,6 +155,7 @@ export default function App() {
               <Route path="/teacher-questions" element={<TeacherQuestionsPage />} />
               <Route path="/clock-sync" element={<ClockSyncLab />} />
               <Route path="/mission-forensics" element={<MissionForensics />} />
+              <Route path="/vector-clock" element={<VectorClockLab />} />
             </Routes>
           </main>
         </div>

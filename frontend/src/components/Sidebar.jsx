@@ -14,7 +14,8 @@ import {
   PlayCircle,
   HelpCircle,
   Clock3,
-  SearchCheck
+  SearchCheck,
+  GitCompare
 } from 'lucide-react';
 
 const navItems = [
@@ -31,7 +32,8 @@ const navItems = [
   { path: '/demo-center', name: 'Classroom Demo Center', icon: PlayCircle },
   { path: '/teacher-questions', name: 'Teacher Questions & Viva', icon: HelpCircle },
   { path: '/clock-sync', name: 'Mission Timeline Integrity', icon: Clock3 },
-  { path: '/mission-forensics', name: 'Mission Incident Reconstruction', icon: SearchCheck }
+  { path: '/mission-forensics', name: 'Mission Incident Reconstruction', icon: SearchCheck },
+  { path: '/vector-clock', name: 'Vector Clock Lab', icon: GitCompare }
 ];
 
 export default function Sidebar() {
