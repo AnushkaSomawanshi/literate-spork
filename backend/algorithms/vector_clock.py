@@ -150,7 +150,8 @@ class VectorClockLab:
             sent = self.send_message("SAT-01", "SAT-03", "Send vector from SAT-01 to SAT-03")
             received = self.receive_message("SAT-03", sent["message"]["message_id"], "SAT-03 receives SAT-01 vector")
             return {"scenario_id": scenario_id, "state": self.state(),
-                    "send_event": sent["event"], "receive_event": received["event"]}
+                    "send_event": sent["event"], "receive_event": received["event"],
+                    "comparison": self.compare_events(sent["event"]["event_id"], received["event"]["event_id"])}
         if scenario_id == "concurrency":
             a = self.local_event("SAT-01", "Independent event A on SAT-01")
             b = self.local_event("SAT-02", "Independent event B on SAT-02")
