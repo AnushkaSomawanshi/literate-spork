@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Activity, AlertTriangle, ArrowDown, ArrowRight, CheckCircle2, ChevronRight,
-  CircleDot, Clock3, Download, Search, GitBranch, GitCompare, History,
+  CircleDot, Clock3, Download, GitBranch, GitCompare, History,
   Layers, MessageSquare, Pause, Play, Radio, RefreshCw, Satellite, Search,
   Send, ShieldCheck, StepForward, Thermometer, Workflow, XCircle
 } from 'lucide-react';
