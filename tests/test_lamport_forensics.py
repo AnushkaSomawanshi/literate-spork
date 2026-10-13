@@ -17,7 +17,8 @@ def test_lamport_clock_updates_and_message_timestamps():
     assert events["E-004"]["logical_timestamp"] == 2
     # Receiver advances beyond both its local clock and the incoming timestamp.
     assert events["E-006"]["clock_before"] == 2
-    assert events["E-006"]["logical_timestamp"] == max(2, 2) + 1 == 3
+    assert events["E-006"]["message_timestamp"] == 2
+    assert events["E-006"]["logical_timestamp"] == max(2, events["E-006"]["message_timestamp"]) + 1 == 3
     assert events["E-008"]["logical_timestamp"] == 5
     assert events["E-011"]["logical_timestamp"] == 8
 
