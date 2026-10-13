@@ -124,12 +124,14 @@ class BeaconMonitor:
                 self._record("BEACON_TRANSMISSION_PAUSED", satellite_id, "Beacon transmitter paused by operator.")
         elif action == "resume":
             node = self.nodes[satellite_id]
+            now = self._now()
+            elapsed_before_recovery = max(0.0, now - node["last_received_at"])
+            was_unhealthy = elapsed_before_recovery >= self.config["suspect_after_seconds"]
             node["paused"] = False
-            node["next_emit_at"] = self._now()
-            self._receive(node, self._now())
-            node["next_emit_at"] = self._now() + self.config["interval_seconds"]
-            if node["state"] != "ACTIVE":
-                node["state"] = "ACTIVE"
+            self._receive(node, now)
+            node["next_emit_at"] = now + self.config["interval_seconds"]
+            node["state"] = "ACTIVE"
+            if was_unhealthy:
                 self._record("NODE_RECOVERED", satellite_id, "Fresh sequence received; node recovered to ACTIVE.")
         elif action == "send":
             self._receive(self.nodes[satellite_id], self._now())
