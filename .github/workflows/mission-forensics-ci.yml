@@ -1,0 +1,53 @@
+name: Mission Forensics validation
+
+on:
+  pull_request:
+    paths:
+      - "backend/algorithms/lamport_clock.py"
+      - "backend/algorithms/event_log.py"
+      - "backend/algorithms/causality.py"
+      - "backend/routers/forensics.py"
+      - "backend/main.py"
+      - "frontend/**"
+      - "tests/test_lamport_forensics.py"
+      - ".github/workflows/mission-forensics-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lamport-tests:
+    name: Lamport algorithm tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install test runner
+        run: python -m pip install --upgrade pip pytest
+      - name: Run Lamport and causality tests
+        run: python -m pytest tests/test_lamport_forensics.py -v
+
+  frontend-build:
+    name: Frontend production build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install frontend dependencies
+        run: npm ci
+      - name: Build frontend
+        run: npm run build

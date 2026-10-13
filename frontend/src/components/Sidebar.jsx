@@ -13,7 +13,8 @@ import {
   Layers,
   PlayCircle,
   HelpCircle,
-  Clock3
+  Clock3,
+  SearchCheck
 } from 'lucide-react';
 
 const navItems = [
@@ -29,7 +30,8 @@ const navItems = [
   { path: '/middleware', name: 'Middleware Architecture', icon: Layers },
   { path: '/demo-center', name: 'Classroom Demo Center', icon: PlayCircle },
   { path: '/teacher-questions', name: 'Teacher Questions & Viva', icon: HelpCircle },
-  { path: '/clock-sync', name: 'Mission Timeline Integrity', icon: Clock3 }
+  { path: '/clock-sync', name: 'Mission Timeline Integrity', icon: Clock3 },
+  { path: '/mission-forensics', name: 'Mission Incident Reconstruction', icon: SearchCheck }
 ];
 
 export default function Sidebar() {
