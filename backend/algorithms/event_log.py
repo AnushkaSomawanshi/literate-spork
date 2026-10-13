@@ -119,6 +119,7 @@ class EventLog:
                 if message.get("received_by"):
                     raise ValueError(f"Message {message_id} has already been received.")
 
+            self.started = True
             parents: list[str] = []
             local_parent = self._last_local_parent(node_id)
             if local_parent:
@@ -148,7 +149,8 @@ class EventLog:
                 "logical_timestamp": logical_timestamp,
                 "physical_timestamp": physical_timestamp or datetime.now(timezone.utc).isoformat(),
                 "message_id": message_id,
-                "destination_id": destination_id if event_type == "send" else (self.messages[message_id]["source_id"] if event_type == "receive" else None),
+                "source_id": node_id if event_type == "send" else (self.messages[message_id]["source_id"] if event_type == "receive" else None),
+                "destination_id": destination_id if event_type == "send" else (node_id if event_type == "receive" else None),
                 "parent_event_ids": parents,
                 "recorded_at": datetime.now(timezone.utc).isoformat(),
             }
