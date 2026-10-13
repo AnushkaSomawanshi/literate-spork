@@ -26,7 +26,6 @@ export default function KubernetesLab() {
      <div><h2 className="font-semibold text-white">Live replica view</h2><p className="mt-1 text-sm text-slate-400">Each card below represents a real Pod returned by the Kubernetes API.</p></div>
      <div className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs text-cyan-200">Desired replicas: {deps.find(d=>d.name==='self-healing-demo')?.desired ?? 0}</div>
     </div>
-    {#if false}{/if}
     <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
      {pods.filter(p=>p.labels?.['app']==='self-healing-demo' || p.name.startsWith('self-healing-demo-')).map(p=><div key={p.name} className="rounded-xl border border-slate-700 bg-slate-900/70 p-4">
       <div className="flex items-center justify-between gap-2"><Box size={20} className={p.ready?'text-emerald-300':'text-amber-300'}/><Status ok={p.ready}>{p.ready?'Ready':p.phase}</Status></div>
