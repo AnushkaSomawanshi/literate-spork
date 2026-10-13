@@ -116,7 +116,7 @@ export default function MissionForensics() {
   const [description, setDescription] = useState('Manual mission event');
   const [messageId, setMessageId] = useState('MSG-MANUAL-001');
   const [compareA, setCompareA] = useState('E-002');
-  const [compareB, setCompareB] = useState('E-006');
+  const [compareB, setCompareB] = useState('E-011');
   const [comparison, setComparison] = useState(null);
   const [ancestors, setAncestors] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
