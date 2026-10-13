@@ -125,14 +125,17 @@ class EventLog:
             if local_parent:
                 parents.append(local_parent)
 
+            message_timestamp = None
             if event_type == "receive":
                 message = self.messages[message_id]
+                message_timestamp = message["logical_timestamp"]
                 sender_event_id = message["send_event_id"]
                 if sender_event_id not in parents:
                     parents.append(sender_event_id)
                 clock_before, logical_timestamp = self.clocks[node_id].receive_event(message["logical_timestamp"])
             elif event_type == "send":
                 clock_before, logical_timestamp = self.clocks[node_id].send_event()
+                message_timestamp = logical_timestamp
             else:
                 clock_before, logical_timestamp = self.clocks[node_id].local_event()
 
@@ -147,6 +150,7 @@ class EventLog:
                 "description": description or f"{event_type.title()} event on {node_id}",
                 "clock_before": clock_before,
                 "logical_timestamp": logical_timestamp,
+                "message_timestamp": message_timestamp,
                 "physical_timestamp": physical_timestamp or datetime.now(timezone.utc).isoformat(),
                 "message_id": message_id,
                 "source_id": node_id if event_type == "send" else (self.messages[message_id]["source_id"] if event_type == "receive" else None),
