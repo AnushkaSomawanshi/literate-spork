@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.config import settings
 from backend.routers.algorithms import router as algorithms_router
+from backend.routers.forensics import router as forensics_router
 from backend.registry.service_registry import global_registry
 from backend.services.health_engine import HealthEngine
 from backend.communication.grpc_client import GRPCClientManager
@@ -487,3 +488,4 @@ async def websocket_endpoint(websocket: WebSocket):
 
 # Advanced distributed-systems experiment APIs (simulated clock synchronization).
 app.include_router(algorithms_router)
+app.include_router(forensics_router)
