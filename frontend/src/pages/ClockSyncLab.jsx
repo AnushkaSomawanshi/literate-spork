@@ -152,6 +152,7 @@ export default function ClockSyncLab() {
       const data = await response.json();
       if (!response.ok) throw new Error(data.detail || 'Synchronization failed.');
       setResult(data);
+      setOffsets(data.offsets_after_ms || offsets);
       setStatus(await (await fetch('/api/algorithms/clock-sync/status')).json());
       setNotice(data.success ? 'Synchronization round completed and verified.' : 'Round completed with a residual clock spread.');
     } catch (err) {
