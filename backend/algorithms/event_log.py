@@ -181,6 +181,16 @@ class EventLog:
             self.step_index += 1
             return {"complete": self.step_index >= len(self.incident["steps"]), "event": event, "trace": self.trace()}
 
+    def previous_step(self) -> dict[str, Any]:
+        """Rebuild the deterministic scenario to the preceding committed step."""
+        with self._lock:
+            target_step = max(0, self.step_index - 1)
+            scenario_id = self.scenario_id
+            self.start(scenario_id)
+            for _ in range(target_step):
+                self.step()
+            return self.trace()
+
     def run_all(self) -> dict[str, Any]:
         with self._lock:
             if not self.started:
