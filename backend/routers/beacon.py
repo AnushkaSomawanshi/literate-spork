@@ -20,16 +20,31 @@ class SimulationRequest(BaseModel):
     seconds: float = Field(default=1.0, gt=0, le=300)
 
 
+_published_event_ids = set()
+
+
 async def broadcast_changes(status):
-    # These are lab events only and intentionally do not mutate the live registry.
-    for event in status.get("events", [])[:8]:
-        if event.get("event_type") in {"NODE_SUSPECTED", "NODE_OFFLINE", "NODE_RECOVERED", "BEACON_RECEIVED"}:
+    # Publish each lab event once; these never mutate the live registry.
+    events = list(reversed(status.get("events", [])))
+    if any(event.get("event_type") == "LAB_RESET" for event in events):
+        _published_event_ids.clear()
+    for event in events:
+        event_id = event.get("event_id")
+        if event_id in _published_event_ids:
+            continue
+        _published_event_ids.add(event_id)
+        if event.get("event_type") in {"NODE_SUSPECTED", "NODE_OFFLINE", "NODE_RECOVERED", "BEACON_RECEIVED", "BEACON_TRANSMISSION_PAUSED"}:
             await websocket_manager.broadcast({"event_type": event["event_type"], "beacon_lab": True, **event})
+    if len(_published_event_ids) > 300:
+        _published_event_ids.clear()
+        _published_event_ids.update(event.get("event_id") for event in events if event.get("event_id"))
 
 
 @router.get("/status")
 async def get_beacon_status():
-    return beacon_monitor.tick()
+    result = beacon_monitor.tick()
+    await broadcast_changes(result)
+    return result
 
 
 @router.post("/config")
@@ -37,6 +52,7 @@ async def configure_beacon_monitor(request: ConfigRequest):
     try:
         result = beacon_monitor.configure(request.interval_seconds, request.suspect_after_seconds,
                                           request.offline_after_seconds)
+        await broadcast_changes(result)
         return result
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -54,4 +70,6 @@ async def simulate_beacon(request: SimulationRequest):
 
 @router.post("/reset")
 async def reset_beacon_lab():
-    return beacon_monitor.reset()
+    result = beacon_monitor.reset()
+    await broadcast_changes(result)
+    return result
