@@ -41,6 +41,7 @@ If neither direction has a path, the API reports `NO_CAUSAL_PATH` and explicitly
 - `GET /api/algorithms/forensics/incidents`
 - `POST /api/algorithms/forensics/incidents/thermal-alert/start`
 - `POST /api/algorithms/forensics/replay/step`
+- `POST /api/algorithms/forensics/replay/previous`
 - `POST /api/algorithms/forensics/replay/run`
 - `POST /api/algorithms/forensics/events`
 - `GET /api/algorithms/forensics/trace`
