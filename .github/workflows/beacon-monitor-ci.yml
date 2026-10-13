@@ -24,7 +24,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install -r requirements.txt
+      - run: python -m pip install --upgrade pip pytest
       - run: pytest -q tests/test_beacon_monitor.py
   frontend-build:
     runs-on: ubuntu-latest
