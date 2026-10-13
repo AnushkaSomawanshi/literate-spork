@@ -62,6 +62,13 @@ async def replay_step():
     return result
 
 
+@router.post("/replay/previous")
+async def replay_previous_step():
+    trace = event_log.previous_step()
+    await websocket_manager.broadcast({"event_type": "FORENSICS_TRACE_RESET", "run_id": trace["run_id"], "trace": trace})
+    return trace
+
+
 @router.post("/replay/run")
 async def replay_all():
     try:
