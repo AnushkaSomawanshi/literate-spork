@@ -42,6 +42,13 @@ def test_send_precedes_receive_and_transitivity_is_preserved():
     assert compare_events(events, thermal_send["event_id"], ack_receive["event_id"])["relation"] == "A_BEFORE_B"
 
 
+def test_comparing_an_event_with_itself_is_not_strict_happened_before():
+    _, trace = complete_trace()
+    result = compare_events(trace["events"], "E-001", "E-001")
+    assert result["relation"] == "SAME_EVENT"
+    assert result["path"] == ["E-001"]
+
+
 def test_independent_satellite_event_has_no_causal_path_to_incident():
     _, trace = complete_trace()
     independent = by_description(trace, "Independent ocean-observation recorded")
