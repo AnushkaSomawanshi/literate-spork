@@ -26,8 +26,6 @@ _published_event_ids = set()
 async def broadcast_changes(status):
     # Publish each lab event once; these never mutate the live registry.
     events = list(reversed(status.get("events", [])))
-    if any(event.get("event_type") == "LAB_RESET" for event in events):
-        _published_event_ids.clear()
     for event in events:
         event_id = event.get("event_id")
         if event_id in _published_event_ids:
