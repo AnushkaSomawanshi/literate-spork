@@ -15,6 +15,7 @@ import MultimediaPage from './pages/MultimediaPage';
 import MiddlewarePage from './pages/MiddlewarePage';
 import SystemHealthDemo from './pages/SystemHealthDemo';
 import TeacherQuestionsPage from './pages/TeacherQuestionsPage';
+import ClockSyncLab from './pages/ClockSyncLab';
 
 export default function App() {
   const [satellites, setSatellites] = useState([]);
@@ -150,6 +151,7 @@ export default function App() {
               <Route path="/middleware" element={<MiddlewarePage />} />
               <Route path="/demo-center" element={<SystemHealthDemo />} />
               <Route path="/teacher-questions" element={<TeacherQuestionsPage />} />
+              <Route path="/clock-sync" element={<ClockSyncLab />} />
             </Routes>
           </main>
         </div>
