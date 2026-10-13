@@ -88,6 +88,60 @@ function TimelineCanvas({ trace, selectedEvent, onSelect }) {
     </div>
   </div>;
 }
+function CausalityGraph({ trace, selectedEvent, highlightedPath = [], onSelect }) {
+  const events = trace?.events || [];
+  const edges = trace?.edges || [];
+  if (!events.length) return <div className="rounded-xl border border-dashed border-slate-700 p-6 text-center text-xs text-slate-500">Record incident events to construct the happened-before graph.</div>;
+  const nodes = SATELLITES.filter((id) => events.some((event) => event.node_id === id));
+  const laneHeight = 96;
+  const maxSequence = Math.max(1, ...events.map((event) => event.process_sequence || 1));
+  const width = Math.max(920, 160 + maxSequence * 170);
+  const height = nodes.length * laneHeight + 12;
+  const nodeIndex = Object.fromEntries(nodes.map((id, index) => [id, index]));
+  const positions = Object.fromEntries(events.map((event) => [event.event_id, {
+    x: 142 + ((event.process_sequence || 1) - 1) * 170,
+    y: (nodeIndex[event.node_id] || 0) * laneHeight + 48
+  }]));
+  const pathSet = new Set(highlightedPath);
+  const emphasizePath = pathSet.size > 1;
+  return <div className="overflow-x-auto rounded-xl border border-slate-800 bg-[#070d18]">
+    <div className="relative" style={{ width, height }}>
+      {nodes.map((node, index) => <div key={node} className="absolute inset-x-0 border-t border-slate-800/80" style={{ top: index * laneHeight, height: laneHeight }}>
+        <div className="sticky left-0 z-20 flex h-full w-[112px] items-center gap-2 border-r border-slate-800 bg-[#0a1120] px-2">
+          <Satellite size={13} className={tone(node).text}/>
+          <span className={'text-[10px] font-semibold ' + tone(node).text}>{node}</span>
+        </div>
+      </div>)}
+      <svg className="pointer-events-none absolute inset-0 z-[5]" width={width} height={height} aria-label="Happened-before graph with process and message edges">
+        <defs><marker id="causality-arrowhead" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L6,3 z" fill="#64748b"/></marker></defs>
+        {edges.map((edge) => {
+          const a = positions[edge.from]; const b = positions[edge.to];
+          if (!a || !b) return null;
+          const highlighted = pathSet.has(edge.from) && pathSet.has(edge.to);
+          const message = edge.kind === 'message';
+          const stroke = highlighted ? '#34d399' : message ? '#22d3ee' : '#64748b';
+          const midX = (a.x + b.x) / 2;
+          return <g key={edge.from + '-' + edge.to}>
+            <path d={'M ' + a.x + ' ' + a.y + ' C ' + midX + ' ' + a.y + ', ' + midX + ' ' + b.y + ', ' + (b.x - 62) + ' ' + b.y} fill="none" stroke={stroke} strokeWidth={highlighted ? 2.8 : message ? 1.8 : 1.2} strokeDasharray={message ? '0' : '4 4'} markerEnd="url(#causality-arrowhead)" opacity={emphasizePath && !highlighted ? 0.14 : 0.78}/>
+          </g>;
+        })}
+      </svg>
+      {events.map((event) => {
+        const pos = positions[event.event_id];
+        const t = tone(event.node_id);
+        const selected = selectedEvent?.event_id === event.event_id;
+        const highlighted = pathSet.has(event.event_id);
+        const Icon = eventIcon(event);
+        return <button key={event.event_id} onClick={() => onSelect(event)} title={event.description} className={'absolute z-10 h-[54px] w-[124px] rounded-lg border px-2 py-1.5 text-left transition ' + (selected ? 'border-white bg-slate-800 ring-2 ring-cyan-300/30' : highlighted ? 'border-emerald-300/70 bg-emerald-400/10' : t.border + ' ' + t.bg) + (emphasizePath && !highlighted ? ' opacity-35' : '')} style={{ left: pos.x - 62, top: pos.y - 27 }}>
+          <div className="flex items-center justify-between gap-1"><span className="font-mono text-[9px] text-slate-400">{event.event_id}</span><Icon size={11} className={t.text}/></div>
+          <div className="mt-1 truncate text-[10px] text-slate-100">{event.description}</div>
+          <div className="mt-0.5 font-mono text-[9px] text-cyan-200">{formatLogical(event.logical_timestamp)}</div>
+        </button>;
+      })}
+    </div>
+  </div>;
+}
+
 function ClockCalculation({ event, messages = [] }) {
   if (!event) return <div className="rounded-xl border border-dashed border-slate-700 p-5 text-sm text-slate-500">Select an event marker to inspect its clock transition and evidence.</div>;
   const receive = event.event_type === 'receive';
@@ -308,6 +362,7 @@ export default function MissionForensics() {
       <div className="mt-5 border-t border-slate-800 pt-4"><div className="text-[10px] uppercase tracking-widest text-slate-500">Inspect a selected event</div><div className="mt-2 flex gap-2"><select value={selectedEvent?.event_id || ''} onChange={e => setSelectedEvent(events.find(x => x.event_id === e.target.value) || null)} className="min-w-0 flex-1 rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-slate-100">{events.map(e => <option key={e.event_id} value={e.event_id}>{e.event_id} · {e.description}</option>)}</select><button onClick={() => tracePaths(selectedEvent)} className="rounded-lg border border-slate-700 px-3 text-xs text-slate-200 hover:bg-slate-800">Trace paths</button></div></div></Panel>
       <Panel className="p-5"><SectionHeading eyebrow="Analysis result" title="Causal relationship" detail="Evidence-backed result and the path used to establish it." icon={GitBranch}/>{comparison ? <div className="mt-5 space-y-4"><div className={'rounded-xl border p-4 ' + (comparison.relation === 'NO_CAUSAL_PATH' ? 'border-amber-300/20 bg-amber-300/5' : 'border-emerald-300/20 bg-emerald-300/5')}><div className="text-[10px] uppercase tracking-wider text-slate-500">Relationship</div><div className="mt-2 text-lg font-semibold text-white">{comparison.relation === 'A_BEFORE_B' ? 'A happened before B' : comparison.relation === 'B_BEFORE_A' ? 'B happened before A' : 'No causal path established'}</div><p className="mt-2 text-xs leading-5 text-slate-300">{comparison.explanation}</p></div>{comparison.path?.length > 0 && <div><div className="text-[10px] uppercase tracking-widest text-slate-500">Directed path</div><div className="mt-2 flex flex-wrap items-center gap-2">{comparison.path.map((id,i) => <React.Fragment key={id}>{i > 0 && <ArrowRight size={13} className="text-emerald-300"/>}<button onClick={() => setSelectedEvent(events.find(e => e.event_id === id) || null)} className="rounded-lg border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 font-mono text-xs text-emerald-100">{id}</button></React.Fragment>)}</div></div>}<div className="rounded-lg border border-slate-800 p-3 text-xs text-slate-400">Lamport timestamps alone do not prove causality. The relationship above is computed from recorded local-process order and message edges.</div></div> : <div className="mt-5 rounded-xl border border-dashed border-slate-700 p-8 text-center"><GitBranch size={26} className="mx-auto text-slate-600"/><div className="mt-3 text-sm font-medium text-slate-200">No comparison run yet</div><p className="mt-1 text-xs text-slate-500">Choose two events and calculate their relationship.</p></div>}
       {ancestors && <div className="mt-5 border-t border-slate-800 pt-4"><div className="text-sm font-semibold text-white">Event path inspection · {ancestors.event_id}</div><div className="mt-3 grid grid-cols-2 gap-3"><div className="rounded-lg bg-slate-950 p-3"><div className="text-[10px] uppercase text-slate-500">Ancestors</div><div className="mt-2 flex flex-wrap gap-1">{ancestors.ancestors.length ? ancestors.ancestors.map(id => <span key={id} className="rounded border border-cyan-400/20 px-2 py-1 font-mono text-[10px] text-cyan-100">{id}</span>) : <span className="text-xs text-slate-500">None in trace</span>}</div></div><div className="rounded-lg bg-slate-950 p-3"><div className="text-[10px] uppercase text-slate-500">Descendants</div><div className="mt-2 flex flex-wrap gap-1">{ancestors.descendants.length ? ancestors.descendants.map(id => <span key={id} className="rounded border border-emerald-400/20 px-2 py-1 font-mono text-[10px] text-emerald-100">{id}</span>) : <span className="text-xs text-slate-500">None in trace</span>}</div></div></div></div>}
+      <div className="mt-5 border-t border-slate-800 pt-5"><SectionHeading eyebrow="Causal topology" title="Happened-before graph" detail="Click a node to inspect it. Message edges are solid; local process-order edges are dashed." icon={Workflow}/><div className="mt-3"><CausalityGraph trace={trace} selectedEvent={selectedEvent} highlightedPath={comparison?.path?.length ? comparison.path : ancestors ? [...ancestors.ancestors, ancestors.event_id, ...ancestors.descendants] : []} onSelect={setSelectedEvent}/></div><div className="mt-3 flex flex-wrap gap-3 text-[10px] text-slate-500"><span className="flex items-center gap-1.5"><span className="h-0.5 w-5 bg-cyan-400"/ >Message send → receive</span><span className="flex items-center gap-1.5"><span className="h-0.5 w-5 border-t border-dashed border-slate-500"/>Local process order</span><span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-emerald-400"/>Highlighted causal path</span></div></div>
       </Panel></div>}
 
     {tab === 'report' && <div className="grid gap-4 xl:grid-cols-[1fr_320px]"><Panel className="p-5 md:p-6"><div className="flex flex-wrap items-start justify-between gap-3"><SectionHeading eyebrow="04 / Final findings" title="Incident reconstruction report" detail="Generated from the current event ledger and causal analysis." icon={ShieldCheck}/><button onClick={exportTrace} disabled={!trace} className="inline-flex items-center gap-2 rounded-lg border border-slate-700 px-3 py-2 text-xs text-slate-200 hover:bg-slate-800 disabled:opacity-40"><Download size={14}/> Export JSON</button></div><div className="mt-5 rounded-xl border border-slate-800 bg-slate-950/60 p-4"><div className="text-[10px] uppercase tracking-widest text-slate-500">{report?.incident_id || 'INC-2048'} · {trace?.run_id}</div><h3 className="mt-2 text-xl font-semibold text-white">{report?.title || 'Thermal Alert / Emergency Imaging'}</h3><p className="mt-2 text-sm leading-6 text-slate-400">The report is provisional until the deterministic event plan has completed. Findings below reflect the records currently available.</p></div><div className="mt-4 space-y-3">{(report?.findings || []).map(f => <div key={f.id} className="rounded-xl border border-slate-800 p-4"><div className="flex items-start justify-between gap-3"><div><div className="text-[10px] uppercase tracking-widest text-slate-500">{f.id}</div><h3 className="mt-1 text-sm font-semibold text-white">{f.title}</h3></div><StatusPill variant={f.status === 'confirmed' || f.status === 'recorded' ? 'success' : f.status === 'pending' ? 'warning' : 'neutral'}>{f.status}</StatusPill></div><p className="mt-2 text-xs leading-5 text-slate-400">{f.detail}</p>{f.evidence_event_ids?.length > 0 && <div className="mt-3 flex flex-wrap gap-1.5">{f.evidence_event_ids.map(id => <button key={id} onClick={() => {setSelectedEvent(events.find(e => e.event_id === id) || null);setTab('reconstruct');}} className="rounded-md border border-slate-700 px-2 py-1 font-mono text-[10px] text-cyan-200 hover:bg-slate-800">{id}</button>)}</div>}</div>)}</div><div className="mt-5 rounded-xl border border-amber-300/20 bg-amber-300/5 p-4"><div className="text-sm font-semibold text-amber-100">Interpretation limits</div><ul className="mt-2 space-y-2 text-xs leading-5 text-slate-400">{(report?.limitations || []).map(item => <li key={item} className="flex gap-2"><span className="text-amber-200">•</span><span>{item}</span></li>)}</ul></div></Panel><div className="space-y-4"><Panel className="p-4"><SectionHeading eyebrow="Trace metadata" title="Evidence ledger" icon={History}/><div className="mt-4 space-y-3 text-xs">{[['Run ID',trace?.run_id],['Events recorded',events.length],['Messages',messages.length],['Replay complete',complete ? 'Yes' : 'No'],['Causal edges',trace?.edges?.length || 0]].map(([k,v]) => <div key={k} className="flex items-center justify-between gap-3 border-b border-slate-800 pb-2"><span className="text-slate-500">{k}</span><span className="max-w-[160px] truncate text-right font-mono text-slate-200">{v ?? '—'}</span></div>)}</div></Panel><Panel className="p-4"><SectionHeading eyebrow="Algorithm checks" title="Semantics checklist" icon={CheckCircle2}/><div className="mt-3 space-y-3 text-xs">{['Local events increment their process clock.','Send timestamps are retained in message records.','Receive uses max(local, message timestamp) + 1.','Causal claims use graph reachability.'].map((label,i) => <div key={label} className="flex items-start gap-2"><span className="mt-0.5 text-emerald-300"><CheckCircle2 size={14}/></span><span className="text-slate-300">{label}</span></div>)}</div><p className="mt-3 text-[10px] leading-4 text-slate-600">These checklist items describe the intended invariants. Automated tests are the source of verification, not this display.</p></Panel></div></div>}
