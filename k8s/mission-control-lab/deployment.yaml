@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: self-healing-demo
+  name: satellite-control-fleet
   namespace: mission-control-lab
   labels:
-    app.kubernetes.io/name: self-healing-demo
+    app.kubernetes.io/name: satellite-control-fleet
     app.kubernetes.io/managed-by: mission-control-kubernetes-lab
 spec:
-  replicas: 2
+  replicas: 5
   selector:
     matchLabels:
-      app.kubernetes.io/name: self-healing-demo
+      app.kubernetes.io/name: satellite-control-fleet
       app.kubernetes.io/managed-by: mission-control-kubernetes-lab
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: self-healing-demo
+        app.kubernetes.io/name: satellite-control-fleet
         app.kubernetes.io/managed-by: mission-control-kubernetes-lab
     spec:
       containers:
-        - name: web
+        - name: satellite-agent
           image: nginx:1.27-alpine
           ports:
             - name: http
