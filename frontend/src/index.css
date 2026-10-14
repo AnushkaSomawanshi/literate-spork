@@ -246,3 +246,56 @@
 .mission-overview-redesign .mo-activity-panel .mo-panel-heading p { max-width:760px; }
 @media(max-width:900px) { .mission-overview-redesign .mo-earth-sphere { width:min(76vw,360px); }.mission-overview-redesign .mo-globe-stage { min-height:360px; } }
 @media(max-width:720px) { .mission-overview-redesign .mo-earth-sphere { width:min(68vw,245px); }.mission-overview-redesign .mo-globe-stage { min-height:300px; }.mission-overview-redesign .mo-activity-chart { height:280px; } }
+
+/* High-level mission intelligence: distinctive, responsive visualization system. */
+.mission-overview-redesign .mo-high-level-section { display:flex; flex-direction:column; gap:14px; margin-top:4px; }
+.mission-overview-redesign .mo-high-level-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.mission-overview-redesign .mo-viz-card { min-width:0; padding:18px 20px; overflow:hidden; background:linear-gradient(145deg,rgba(13,26,43,.98),rgba(7,17,30,.98)); }
+.mission-overview-redesign .mo-viz-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+.mission-overview-redesign .mo-viz-heading>svg { color:#55d8ef; flex-shrink:0; margin-top:4px; }
+.mission-overview-redesign .mo-viz-heading h4 { margin:5px 0 4px; color:#e7f2ff; font:700 15px/1.35 'Orbitron',sans-serif; }
+.mission-overview-redesign .mo-viz-heading p { margin:0; color:#91a8c1; font-size:12px; line-height:1.5; }
+.mission-overview-redesign .mo-viz-index { color:#58d6ee; font:700 10px/1.4 'JetBrains Mono',monospace; letter-spacing:.08em; }
+.mission-overview-redesign .mo-radar-wrap { display:flex; flex-direction:column; align-items:center; padding-top:8px; }
+.mission-overview-redesign .mo-radar-wrap svg { width:100%; max-width:370px; height:auto; overflow:visible; }
+.mission-overview-redesign .mo-viz-foot { color:#829ab3; font-size:10px; line-height:1.55; margin-top:10px; }
+.mission-overview-redesign .mo-viz-empty { min-height:130px; display:flex; align-items:center; justify-content:center; text-align:center; padding:20px; color:#8fa7c0; font-size:12px; }
+.mission-overview-redesign .mo-topology-canvas { width:100%; padding:8px 0 0; }
+.mission-overview-redesign .mo-topology-canvas svg { width:100%; height:auto; display:block; overflow:visible; }
+.mission-overview-redesign .mo-topology-legend { display:flex; gap:14px; flex-wrap:wrap; margin-top:10px; color:#9ab0c6; font-size:10px; }
+.mission-overview-redesign .mo-topology-legend span { display:flex; align-items:center; gap:6px; }
+.mission-overview-redesign .mo-topology-legend i { width:7px; height:7px; display:inline-block; border-radius:50%; background:#34d399; }
+.mission-overview-redesign .mo-topology-legend i.is-unknown { background:#64748b; }
+.mission-overview-redesign .mo-pulse-metric { display:flex; align-items:baseline; flex-wrap:wrap; gap:8px; margin-top:22px; }
+.mission-overview-redesign .mo-pulse-metric strong { font:700 clamp(27px,3vw,38px)/1 'Orbitron',sans-serif; color:#e8f8ff; letter-spacing:-.04em; }
+.mission-overview-redesign .mo-pulse-metric span { color:#9db3ca; font-size:12px; }
+.mission-overview-redesign .mo-pulse-metric em { width:100%; font:700 10px 'JetBrains Mono',monospace; font-style:normal; letter-spacing:.06em; }
+.mission-overview-redesign .mo-success { color:#34d399!important; }
+.mission-overview-redesign .mo-muted { color:#94a3b8!important; }
+.mission-overview-redesign .mo-pulse-wave { width:100%; height:100px; display:block; margin-top:18px; }
+.mission-overview-redesign .mo-heatmap-wrap { width:100%; overflow-x:auto; margin-top:16px; }
+.mission-overview-redesign .mo-heatmap-table { width:100%; min-width:470px; border-collapse:separate; border-spacing:0 5px; font-size:11px; }
+.mission-overview-redesign .mo-heatmap-table th { padding:7px 8px; color:#8ea7c0; text-align:left; font:700 9px 'JetBrains Mono',monospace; letter-spacing:.04em; white-space:nowrap; }
+.mission-overview-redesign .mo-heatmap-table tbody tr { cursor:pointer; }
+.mission-overview-redesign .mo-heatmap-table tbody tr>th { color:#dbeafa; font-size:11px; }
+.mission-overview-redesign .mo-heatmap-table td { padding:5px 4px; }
+.mission-overview-redesign .mo-heatmap-table td span { display:block; text-align:center; padding:6px 5px; border-radius:5px; font:600 10px 'JetBrains Mono',monospace; white-space:nowrap; }
+.mission-overview-redesign .mo-heatmap-table .is-good { color:#6ee7b7; background:rgba(16,185,129,.12); border:1px solid rgba(52,211,153,.15); }
+.mission-overview-redesign .mo-heatmap-table .is-warn { color:#fcd34d; background:rgba(245,158,11,.12); border:1px solid rgba(251,191,36,.2); }
+.mission-overview-redesign .mo-heatmap-table .is-missing { color:#9aaec3; background:rgba(100,116,139,.13); border:1px solid rgba(100,116,139,.18); }
+.mission-overview-redesign .mo-heatmap-table tr.is-selected>th { color:#53d8ef; }
+.mission-overview-redesign .mo-heatmap-table tr:hover>th { color:#67e8f9; }
+.mission-overview-redesign .mo-timeline { margin-top:16px; }
+.mission-overview-redesign .mo-timeline-row { display:grid; grid-template-columns:10px minmax(0,1fr) auto; align-items:start; gap:10px; padding:12px 0; border-bottom:1px solid rgba(67,94,121,.25); }
+.mission-overview-redesign .mo-timeline-row:last-child { border-bottom:0; }
+.mission-overview-redesign .mo-timeline-row>span { width:7px; height:7px; border-radius:50%; background:#34d399; margin-top:5px; box-shadow:0 0 12px rgba(52,211,153,.25); }
+.mission-overview-redesign .mo-timeline-row>span.is-alert { background:#fb7185; box-shadow:0 0 12px rgba(251,113,133,.25); }
+.mission-overview-redesign .mo-timeline-row strong { color:#e3effb; font-size:12px; }
+.mission-overview-redesign .mo-timeline-row p { color:#91a8c1; font-size:11px; line-height:1.5; margin:3px 0 0; overflow-wrap:anywhere; }
+.mission-overview-redesign .mo-timeline-row time { color:#7e95ad; font:10px 'JetBrains Mono',monospace; white-space:nowrap; }
+.mission-overview-redesign .mo-earth-sphere { width:min( min(76vw, 390px), 100%); aspect-ratio:1 / 1; height:auto; flex-shrink:0; border-radius:50%; overflow:hidden; position:relative; }
+.mission-overview-redesign .mo-earth-texture,.mission-overview-redesign .mo-earth-shade { width:100%; height:100%; border-radius:50%; }
+.mission-overview-redesign .mo-earth-texture { background-size:auto 100%; background-position:center; }
+.mission-overview-redesign .mo-globe-stage { min-height:430px; }
+@media(max-width:1050px) { .mission-overview-redesign .mo-high-level-grid { grid-template-columns:minmax(0,1fr); }.mission-overview-redesign .mo-radar-wrap svg { max-width:340px; } }
+@media(max-width:720px) { .mission-overview-redesign .mo-viz-card { padding:15px; }.mission-overview-redesign .mo-globe-stage { min-height:330px; }.mission-overview-redesign .mo-earth-sphere { width:min(68vw,245px); }.mission-overview-redesign .mo-timeline-row { grid-template-columns:9px minmax(0,1fr); }.mission-overview-redesign .mo-timeline-row time { grid-column:2; }.mission-overview-redesign .mo-pulse-wave { height:78px; } }
