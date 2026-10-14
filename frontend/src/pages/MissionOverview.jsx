@@ -46,7 +46,7 @@ export default function MissionOverview({ satellites = [], events = [], observat
         <div className="relative z-10 space-y-2">
           <div className="flex items-center space-x-3">
             <span className="px-3 py-1 bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 rounded-full text-xs font-semibold font-orbitron">
-              FA-1 CONSTELLATION STATUS
+              LIVE MISSION OPERATIONS
             </span>
             <span className="text-xs text-slate-400 font-mono">5 Independent LEO Satellite Microservices</span>
           </div>
@@ -54,7 +54,7 @@ export default function MissionOverview({ satellites = [], events = [], observat
             Distributed Mission Control Observatory
           </h2>
           <p className="text-sm text-slate-400 max-w-3xl leading-relaxed">
-            Real-time monitoring system demonstrating multi-protocol communication (gRPC, RabbitMQ, WebSockets, P2P, WebRTC), dynamic service discovery, fault tolerance, and syllabus concepts.
+            Real-time monitoring of multi-protocol communications, dynamic service discovery, satellite health, and fault tolerance.
           </p>
         </div>
       </div>
@@ -122,13 +122,6 @@ export default function MissionOverview({ satellites = [], events = [], observat
           <p className="text-xs text-slate-400">Inspect RPC, RabbitMQ, WebSockets, P2P, and WebRTC streams live.</p>
         </NavLink>
 
-        <NavLink to="/concepts" className="glass-card p-5 rounded-2xl block space-y-2 border border-slate-800 hover:border-cyan-500/40 transition">
-          <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-slate-200 text-sm font-orbitron">Distributed Syllabus Matrix</h3>
-            <ArrowRight className="w-4 h-4 text-cyan-400" />
-          </div>
-          <p className="text-xs text-slate-400">Unit 1 & Unit 2 topic evidence with interactive demo triggers.</p>
-        </NavLink>
       </div>
 
       {/* Satellite Status Table */}
