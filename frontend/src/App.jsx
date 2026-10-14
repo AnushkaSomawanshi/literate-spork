@@ -6,15 +6,10 @@ import Sidebar from './components/Sidebar';
 import MissionOverview from './pages/MissionOverview';
 import ConstellationMap from './pages/ConstellationMap';
 import CommunicationObservatory from './pages/CommunicationObservatory';
-import CommunicationReplay from './pages/CommunicationReplay';
-import DistributedConcepts from './pages/DistributedConcepts';
 import FaultSimulatorPage from './pages/FaultSimulatorPage';
 import SatelliteRegistryPage from './pages/SatelliteRegistryPage';
 import LiveTelemetryPage from './pages/LiveTelemetryPage';
 import MultimediaPage from './pages/MultimediaPage';
-import MiddlewarePage from './pages/MiddlewarePage';
-import SystemHealthDemo from './pages/SystemHealthDemo';
-import TeacherQuestionsPage from './pages/TeacherQuestionsPage';
 import ClockSyncLab from './pages/ClockSyncLab';
 import MissionForensics from './pages/MissionForensics';
 import VectorClockLab from './pages/VectorClockLab';
@@ -146,15 +141,10 @@ export default function App() {
               <Route path="/" element={<MissionOverview satellites={satellites} observatoryStats={observatoryStats} />} />
               <Route path="/topology" element={<ConstellationMap satellites={satellites} />} />
               <Route path="/observatory" element={<CommunicationObservatory observatoryStats={observatoryStats} />} />
-              <Route path="/replay" element={<CommunicationReplay />} />
-              <Route path="/concepts" element={<DistributedConcepts />} />
               <Route path="/faults" element={<FaultSimulatorPage satellites={satellites} activeFaults={activeFaults} />} />
               <Route path="/registry" element={<SatelliteRegistryPage satellites={satellites} onRefresh={fetchSatelliteData} />} />
               <Route path="/telemetry" element={<LiveTelemetryPage telemetryHistory={telemetryHistory} satellites={satellites} />} />
               <Route path="/multimedia" element={<MultimediaPage />} />
-              <Route path="/middleware" element={<MiddlewarePage />} />
-              <Route path="/demo-center" element={<SystemHealthDemo />} />
-              <Route path="/teacher-questions" element={<TeacherQuestionsPage />} />
               <Route path="/clock-sync" element={<ClockSyncLab />} />
               <Route path="/mission-forensics" element={<MissionForensics />} />
               <Route path="/vector-clock" element={<VectorClockLab />} />
