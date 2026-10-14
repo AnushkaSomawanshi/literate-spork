@@ -13,6 +13,7 @@ import MultimediaPage from './pages/MultimediaPage';
 import ClockSyncLab from './pages/ClockSyncLab';
 import MissionForensics from './pages/MissionForensics';
 import VectorClockLab from './pages/VectorClockLab';
+import MutualExclusionLab from './pages/MutualExclusionLab';
 import BeaconMonitoringLab from './pages/BeaconMonitoringLab';
 import KubernetesLab from './pages/KubernetesLab';
 
@@ -148,6 +149,7 @@ export default function App() {
               <Route path="/clock-sync" element={<ClockSyncLab />} />
               <Route path="/mission-forensics" element={<MissionForensics />} />
               <Route path="/vector-clock" element={<VectorClockLab />} />
+              <Route path="/mutual-exclusion" element={<MutualExclusionLab />} />
               <Route path="/beacon-monitor" element={<BeaconMonitoringLab />} />
               <Route path="/kubernetes-lab" element={<KubernetesLab />} />
             </Routes>
