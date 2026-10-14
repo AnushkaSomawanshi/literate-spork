@@ -138,7 +138,7 @@ export default function App() {
           <Sidebar />
           <main className="flex-1 p-6 overflow-y-auto">
             <Routes>
-              <Route path="/" element={<MissionOverview satellites={satellites} observatoryStats={observatoryStats} />} />
+              <Route path="/" element={<MissionOverview satellites={satellites} observatoryStats={observatoryStats} telemetryHistory={telemetryHistory} activeFaults={activeFaults} systemHealth={systemHealth} wsConnected={wsConnected} />} />
               <Route path="/topology" element={<ConstellationMap satellites={satellites} />} />
               <Route path="/observatory" element={<CommunicationObservatory observatoryStats={observatoryStats} />} />
               <Route path="/faults" element={<FaultSimulatorPage satellites={satellites} activeFaults={activeFaults} />} />
