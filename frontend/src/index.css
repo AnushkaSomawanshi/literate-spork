@@ -235,3 +235,14 @@
 .mission-overview-redesign .mo-chart-heading p { font-size:11px; }
 @media(max-width:1150px) { .mission-overview-redesign .mo-summary-strip { grid-template-columns:repeat(2,minmax(0,1fr)); }.mission-overview-redesign .mo-main-grid { grid-template-columns:minmax(0,1fr); }.mission-overview-redesign .mo-side-column { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }.mission-overview-redesign .mo-selected-panel { grid-row:span 2; } }
 @media(max-width:720px) { .mission-overview-redesign .mo-summary-strip { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }.mission-overview-redesign .mo-summary-item { padding:11px; }.mission-overview-redesign .mo-summary-item>strong { font-size:16px; }.mission-overview-redesign .mo-summary-item>span { font-size:9px; }.mission-overview-redesign .mo-summary-item>em { font-size:10px; }.mission-overview-redesign .mo-hero { padding:18px; }.mission-overview-redesign .mo-globe-stage { height:300px; }.mission-overview-redesign .mo-side-column { display:flex; flex-direction:column; }.mission-overview-redesign .mo-activity-chart { height:210px; } }
+
+/* Dashboard visual correction: true circular globe and useful non-empty fleet telemetry graph. */
+.mission-overview-redesign .mo-earth-sphere { width:min( min(76vw, 390px), 100%); height:auto; aspect-ratio:1 / 1; flex-shrink:0; }
+.mission-overview-redesign .mo-earth-texture,
+.mission-overview-redesign .mo-earth-shade { width:100%; height:100%; }
+.mission-overview-redesign .mo-earth-texture { background-size:auto 100%; background-position:center; }
+.mission-overview-redesign .mo-globe-stage { min-height:390px; }
+.mission-overview-redesign .mo-activity-chart { height:300px; }
+.mission-overview-redesign .mo-activity-panel .mo-panel-heading p { max-width:760px; }
+@media(max-width:900px) { .mission-overview-redesign .mo-earth-sphere { width:min(76vw,360px); }.mission-overview-redesign .mo-globe-stage { min-height:360px; } }
+@media(max-width:720px) { .mission-overview-redesign .mo-earth-sphere { width:min(68vw,245px); }.mission-overview-redesign .mo-globe-stage { min-height:300px; }.mission-overview-redesign .mo-activity-chart { height:280px; } }
