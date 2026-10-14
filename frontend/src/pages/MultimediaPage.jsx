@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Activity, AlertTriangle, CheckCircle2, CircleStop, Clock3, Cpu, Play, Radio, RefreshCw, Signal, Video, Wifi, XCircle } from 'lucide-react';
+import { Activity, AlertTriangle, CheckCircle2, Square, Clock3, Cpu, Play, Radio, RefreshCw, Signal, Video, Wifi, XCircle } from 'lucide-react';
 
 const initialStats = { bitrateKbps: null, fps: null, frames: 0, packetsLost: null, jitterMs: null, rttMs: null, resolution: '—' };
 const stamp = () => new Date().toLocaleTimeString();
