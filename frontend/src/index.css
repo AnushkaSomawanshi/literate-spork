@@ -137,3 +137,76 @@
 .mo-earth-sphere::after { content:""; position:absolute; inset:0; border-radius:50%; pointer-events:none; background:radial-gradient(ellipse at 28% 23%,rgba(170,231,255,.2),transparent 34%),linear-gradient(90deg,rgba(1,8,19,.02) 48%,rgba(1,8,19,.62) 100%); box-shadow:inset 0 0 20px rgba(78,203,255,.18); }
 @media(max-width:900px) { .mo-chart-grid { grid-template-columns:minmax(0,1fr); }.mo-chart-panel { min-height:280px; }.mo-section-intro { align-items:flex-start; flex-direction:column; }.mo-globe-stage { height:390px; }.mo-earth-sphere { width:min(76%,360px); height:min(94%,360px); } }
 @media(max-width:720px) { .mo-globe-stage { height:300px; }.mo-earth-sphere { width:205px; height:205px; }.mo-event-row { flex-wrap:wrap; }.mo-event-row time { margin-left:18px; }.mo-chart-canvas { height:205px; } }
+
+/* Mission Overview: prioritize the Earth/orbit visualization above supporting telemetry. */
+.mission-overview-redesign > .mo-earth-panel { width:100%; }
+.mission-overview-redesign > .mo-support-grid { grid-template-columns:minmax(0,1fr); }
+.mission-overview-redesign > .mo-support-grid > .mo-side-column { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:start; }
+@media(max-width:1150px) { .mission-overview-redesign > .mo-support-grid > .mo-side-column { grid-template-columns:repeat(2,minmax(0,1fr)); } .mission-overview-redesign > .mo-support-grid .mo-selected-panel { grid-row:auto; } }
+@media(max-width:720px) { .mission-overview-redesign > .mo-support-grid > .mo-side-column { display:flex; flex-direction:column; } }
+
+/* Mission Overview readability pass: larger type, clearer hierarchy, and more room for Earth. */
+.mission-overview-redesign { font-size:14px; line-height:1.55; }
+.mission-overview-redesign > .mo-hero { margin-bottom:2px; }
+.mission-overview-redesign > .mo-earth-panel { padding:22px; }
+.mission-overview-redesign > .mo-earth-panel .mo-panel-heading h3 { font-size:19px; }
+.mission-overview-redesign > .mo-earth-panel .mo-panel-heading p { font-size:12px; }
+.mission-overview-redesign > .mo-earth-panel .mo-globe-stage { height:clamp(420px,46vw,560px); }
+.mission-overview-redesign .mo-hero-kicker,
+.mission-overview-redesign .mo-eyebrow { font-size:11px; }
+.mission-overview-redesign .mo-live { font-size:10px; }
+.mission-overview-redesign .mo-globe-legend { font-size:11px; gap:18px; padding-top:15px; }
+.mission-overview-redesign .mo-orbit-disclaimer,
+.mission-overview-redesign .mo-globe-caption { font-size:10px; }
+.mission-overview-redesign .mo-map-heading h4 { font-size:15px; }
+.mission-overview-redesign .mo-coordinate-count,
+.mission-overview-redesign .mo-map-footnote { font-size:11px; line-height:1.65; }
+.mission-overview-redesign > .mo-support-grid { margin-top:2px; }
+.mission-overview-redesign > .mo-support-grid > .mo-side-column { gap:16px; }
+.mission-overview-redesign > .mo-support-grid .mo-panel { padding:20px; }
+.mission-overview-redesign > .mo-support-grid .mo-panel-heading h3 { font-size:17px; }
+.mission-overview-redesign > .mo-support-grid .mo-panel-heading p { font-size:12px; }
+.mission-overview-redesign > .mo-support-grid .mo-selected-title strong { font-size:15px; }
+.mission-overview-redesign > .mo-support-grid .mo-selected-title span:not(.mo-status-pill) { font-size:11px; }
+.mission-overview-redesign > .mo-support-grid .mo-inspector-metrics span { font-size:11px; }
+.mission-overview-redesign > .mo-support-grid .mo-inspector-metrics strong { font-size:15px; }
+.mission-overview-redesign > .mo-support-grid .mo-position-grid span { font-size:10px; }
+.mission-overview-redesign > .mo-support-grid .mo-position-grid strong { font-size:12px; }
+.mission-overview-redesign > .mo-support-grid .mo-section-label { font-size:11px; }
+.mission-overview-redesign > .mo-support-grid .mo-endpoints span,
+.mission-overview-redesign > .mo-support-grid .mo-inspector-note { font-size:11px; }
+.mission-overview-redesign > .mo-support-grid .mo-fleet-name { font-size:12px; }
+.mission-overview-redesign > .mo-support-grid .mo-fleet-name small { font-size:10px; }
+.mission-overview-redesign > .mo-support-grid .mo-fleet-health,
+.mission-overview-redesign > .mo-support-grid .mo-fleet-count { font-size:11px; }
+.mission-overview-redesign > .mo-support-grid .mo-view-all,
+.mission-overview-redesign > .mo-support-grid .mo-quick-links a { font-size:12px; }
+.mission-overview-redesign .mo-section-intro h3 { font-size:20px; }
+.mission-overview-redesign .mo-section-intro p { font-size:12px; }
+.mission-overview-redesign .mo-data-window { font-size:11px; }
+.mission-overview-redesign .mo-chart-heading h4 { font-size:14px; }
+.mission-overview-redesign .mo-chart-heading p,
+.mission-overview-redesign .mo-chart-empty { font-size:11px; }
+.mission-overview-redesign .mo-status-breakdown-row { font-size:12px; }
+.mission-overview-redesign .mo-status-breakdown-row > strong { font-size:13px; }
+.mission-overview-redesign .mo-analytics-foot,
+.mission-overview-redesign .mo-event-copy strong,
+.mission-overview-redesign .mo-event-copy span,
+.mission-overview-redesign .mo-events-empty { font-size:12px; }
+.mission-overview-redesign .mo-event-row time { font-size:10px; }
+.mission-overview-redesign .mo-table { font-size:12px; }
+.mission-overview-redesign .mo-table th { font-size:10px; }
+.mission-overview-redesign .mo-table td { padding:14px 15px; }
+.mission-overview-redesign .mo-table-sat { font-size:12px; }
+@media(max-width:900px) {
+  .mission-overview-redesign > .mo-earth-panel .mo-globe-stage { height:420px; }
+  .mission-overview-redesign > .mo-support-grid > .mo-side-column { grid-template-columns:minmax(0,1fr); }
+}
+@media(max-width:720px) {
+  .mission-overview-redesign > .mo-earth-panel { padding:14px; }
+  .mission-overview-redesign > .mo-earth-panel .mo-globe-stage { height:320px; }
+  .mission-overview-redesign .mo-globe-legend { gap:10px; font-size:10px; }
+  .mission-overview-redesign .mo-orbit-disclaimer { max-width:54%; text-align:right; line-height:1.5; }
+  .mission-overview-redesign > .mo-support-grid .mo-panel { padding:16px; }
+  .mission-overview-redesign .mo-section-intro h3 { font-size:18px; }
+}
