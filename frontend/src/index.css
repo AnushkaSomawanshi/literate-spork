@@ -210,3 +210,28 @@
   .mission-overview-redesign > .mo-support-grid .mo-panel { padding:16px; }
   .mission-overview-redesign .mo-section-intro h3 { font-size:18px; }
 }
+
+/* Balanced Mission Overview: compact summary, original split workspace, and readable telemetry. */
+.mission-overview-redesign { gap:18px; }
+.mission-overview-redesign > .mo-hero { min-height:126px; padding:20px 28px; border-radius:14px; }
+.mission-overview-redesign > .mo-hero .mo-hero-content { max-width:100%; }
+.mission-overview-redesign > .mo-hero .mo-hero h2 { font-size:clamp(22px,2.2vw,28px); }
+.mission-overview-redesign > .mo-hero p { font-size:13px; }
+.mission-overview-redesign .mo-summary-strip { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+.mission-overview-redesign .mo-summary-item { min-width:0; display:flex; flex-direction:column; gap:6px; padding:13px 15px; border:1px solid var(--mo-border); border-radius:10px; background:linear-gradient(145deg,rgba(17,30,49,.92),rgba(10,20,35,.97)); }
+.mission-overview-redesign .mo-summary-item>span { color:#91a5bf; font:700 10px/1.4 'JetBrains Mono',monospace; letter-spacing:.07em; }
+.mission-overview-redesign .mo-summary-item>strong { color:#edf6ff; font:700 19px/1.25 'Orbitron',sans-serif; overflow-wrap:anywhere; }
+.mission-overview-redesign .mo-summary-item>strong small { color:#91a5bf; font:500 12px 'JetBrains Mono',monospace; }
+.mission-overview-redesign .mo-summary-item>em { color:#8ba1b9; font:11px/1.4 'JetBrains Mono',monospace; font-style:normal; }
+.mission-overview-redesign .mo-main-grid { grid-template-columns:minmax(0,1.2fr) minmax(340px,.8fr); gap:16px; }
+.mission-overview-redesign .mo-globe-stage { height:390px; }
+.mission-overview-redesign .mo-panel-heading h3 { font-size:16px; }
+.mission-overview-redesign .mo-panel-heading p { font-size:12px; }
+.mission-overview-redesign .mo-eyebrow { font-size:11px; }
+.mission-overview-redesign .mo-globe-legend,.mission-overview-redesign .mo-coordinate-count { font-size:11px; }
+.mission-overview-redesign .mo-activity-panel { padding:18px 20px; }
+.mission-overview-redesign .mo-activity-chart { width:100%; height:235px; min-width:0; }
+.mission-overview-redesign .mo-chart-heading h4 { font-size:14px; }
+.mission-overview-redesign .mo-chart-heading p { font-size:11px; }
+@media(max-width:1150px) { .mission-overview-redesign .mo-summary-strip { grid-template-columns:repeat(2,minmax(0,1fr)); }.mission-overview-redesign .mo-main-grid { grid-template-columns:minmax(0,1fr); }.mission-overview-redesign .mo-side-column { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }.mission-overview-redesign .mo-selected-panel { grid-row:span 2; } }
+@media(max-width:720px) { .mission-overview-redesign .mo-summary-strip { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }.mission-overview-redesign .mo-summary-item { padding:11px; }.mission-overview-redesign .mo-summary-item>strong { font-size:16px; }.mission-overview-redesign .mo-summary-item>span { font-size:9px; }.mission-overview-redesign .mo-summary-item>em { font-size:10px; }.mission-overview-redesign .mo-hero { padding:18px; }.mission-overview-redesign .mo-globe-stage { height:300px; }.mission-overview-redesign .mo-side-column { display:flex; flex-direction:column; }.mission-overview-redesign .mo-activity-chart { height:210px; } }
