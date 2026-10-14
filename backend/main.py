@@ -12,6 +12,7 @@ from backend.config import settings
 from backend.routers.algorithms import router as algorithms_router
 from backend.routers.forensics import router as forensics_router
 from backend.routers.vector_clock import router as vector_clock_router
+from backend.routers.mutual_exclusion import router as mutual_exclusion_router
 from backend.routers.beacon import router as beacon_router
 from backend.routers.kubernetes_lab import router as kubernetes_lab_router
 from backend.registry.service_registry import global_registry
@@ -493,6 +494,7 @@ async def websocket_endpoint(websocket: WebSocket):
 app.include_router(algorithms_router)
 app.include_router(forensics_router)
 app.include_router(vector_clock_router)
+app.include_router(mutual_exclusion_router)
 app.include_router(beacon_router)
 
 app.include_router(kubernetes_lab_router)

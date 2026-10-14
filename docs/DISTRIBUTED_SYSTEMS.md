@@ -177,3 +177,16 @@ Satellites in orbit require direct cross-links to exchange cross-track telemetry
 
 ### Q5: How is the leader elected if a satellite node fails?
 > **Answer**: *"The Ring Leader Election algorithm constructs an ordered ring of active node IDs. It bypasses nodes marked `OFFLINE` by the failure detector, passes candidate IDs along active links, and elects the node with the highest ID (`SAT-05` nominally, or `SAT-04` if `SAT-05` fails) as the new coordinator."*
+
+
+### 16. Mutual Exclusion — Shared Resource Access Lab
+
+- **Scenario**: Five satellite processes request access to a simulated priority uplink used for emergency alerts, image uploads, and telemetry.
+- **Algorithm**: Ricart–Agrawala permission-based mutual exclusion. A requester broadcasts a timestamped REQUEST and requires REPLY permissions from all four other participating satellites before entering the critical section.
+- **Priority**: Requests are ordered by (logical timestamp, satellite ID). A process defers a reply when it is inside the critical section or its own outstanding request has priority.
+- **Frontend**: `/mutual-exclusion` — Mission console, protocol walkthrough, and radio/event ledger.
+- **Backend**: `backend/algorithms/mutual_exclusion.py`, `backend/routers/mutual_exclusion.py`.
+- **API**: `GET /api/algorithms/mutual-exclusion/state`; `POST /request`; `POST /release/{satellite_id}`; `POST /scenario/simultaneous-requests`; `POST /reset`.
+- **Verification**: `tests/test_mutual_exclusion.py` checks permission counts, resource ownership, release rules, waiting requests, and the safety invariant.
+- **Academic concepts**: mutual exclusion, critical section, message-based coordination, logical-clock priority, safety, and liveness assumptions.
+- **Limitations**: This is an in-memory teaching simulation. It does not control real radio hardware, persist state across restarts, or make Ricart–Agrawala fault tolerant. The basic algorithm may block if a participating node fails to reply.
