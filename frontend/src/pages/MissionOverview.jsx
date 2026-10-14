@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Activity, ArrowRight, BatteryCharging, CheckCircle2, Cpu, Globe2, MapPin, Radio, RefreshCw, Satellite, ShieldAlert, Signal, Wifi, Clock3, Thermometer, TrendingUp, Database } from 'lucide-react';
 import { ResponsiveContainer, LineChart, Line, AreaChart, Area, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
-const EARTH_TEXTURE = 'https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57730/land_ocean_ice_cloud_2048.jpg';
+const EARTH_TEXTURE = 'https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57735/land_ocean_ice_cloud_2048.jpg';
 const statusColor = s => s === 'HEALTHY' ? '#34d399' : s === 'WARNING' ? '#fbbf24' : s === 'CRITICAL' || s === 'OFFLINE' ? '#fb7185' : '#22d3ee';
 function positionOf(s) {
   const p = s?.position || s?.telemetry?.position || {};
